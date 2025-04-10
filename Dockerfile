@@ -1,7 +1,8 @@
 # Use a Python base image
+# Use a Python base image
 FROM python:3.9-slim
 
-# Install system dependencies for building packages
+# Install system dependencies
 RUN apt-get update && \
     apt-get install -y \
     build-essential \
@@ -13,6 +14,9 @@ RUN apt-get update && \
     libxslt1-dev \
     zlib1g-dev && \
     rm -rf /var/lib/apt/lists/*
+
+# Create the input directory
+RUN mkdir -p /app/input
 
 # Set up working directory
 WORKDIR /app
