@@ -1,35 +1,28 @@
 # Use a Python base image
-# Use a Python base image
-FROM python:3.9-slim
+FFROM python:3.9-slim
 
 # Install system dependencies
-RUN apt-get update && \
-    apt-get install -y \
+RUN apt-get update && apt-get install -y \
     build-essential \
+    gcc \
     poppler-utils \
     tesseract-ocr \
-    gcc \
-    g++ \
-    libxml2-dev \
-    libxslt1-dev \
-    zlib1g-dev && \
-    rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
-# Create the input directory
-RUN mkdir -p /app/input
-
-# Set up working directory
+# Set working directory
 WORKDIR /app
 
-# Copy the application code
+# Copy project files
 COPY . /app
 
-# Install the Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt && \
-    python -m spacy download en_core_web_sm
+# Create input directory
+RUN mkdir -p /app/input
 
-# Expose the API port
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose port
 EXPOSE 5000
 
-# Run the Flask app
-CMD ["python", "main.py"]
+# Run app
+CMD ["python", "app.py"]
