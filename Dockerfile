@@ -17,4 +17,4 @@ RUN pip install -r requirements.txt && python -m spacy download en_core_web_sm
 EXPOSE 5000
 
 # Run the Flask app
-CMD ["python", "app.py"]
+CMD ["python", "main.py"]
